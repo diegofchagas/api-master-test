@@ -1,10 +1,10 @@
-import express from 'express';
-import cors from 'cors';
-import fs from 'fs-extra';
+import express from "express";
+import cors from "cors";
+import fs from "fs-extra";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const DB_FILE = './db.json';
+const DB_FILE = "./db.json";
 
 app.use(cors());
 app.use(express.json());
@@ -18,12 +18,12 @@ async function writeData(alunos) {
   await fs.writeJson(DB_FILE, { alunos }, { spaces: 2 });
 }
 
-app.get('/alunos', async (req, res) => {
+app.get("/alunos", async (req, res) => {
   const alunos = await readData();
   res.json(alunos);
 });
 
-app.post('/alunos', async (req, res) => {
+app.post("/alunos", async (req, res) => {
   const novoAluno = req.body;
 
   // Gera ID automaticamente
@@ -31,7 +31,8 @@ app.post('/alunos', async (req, res) => {
 
   // Define valorAdicional e descricaoAdicional como opcionais
   if (novoAluno.valorAdicional === undefined) novoAluno.valorAdicional = 0;
-  if (novoAluno.descricaoAdicional === undefined) novoAluno.descricaoAdicional = "";
+  if (novoAluno.descricaoAdicional === undefined)
+    novoAluno.descricaoAdicional = "";
 
   const alunos = await readData();
   alunos.push(novoAluno);
@@ -39,7 +40,7 @@ app.post('/alunos', async (req, res) => {
   res.status(201).json(novoAluno);
 });
 
-app.put('/alunos/:id', async (req, res) => {
+app.put("/alunos/:id", async (req, res) => {
   const { id } = req.params;
   const alunoAtualizado = req.body;
   const alunos = await readData();
@@ -50,7 +51,7 @@ app.put('/alunos/:id', async (req, res) => {
   res.json(alunoAtualizado);
 });
 
-app.delete('/alunos/:id', async (req, res) => {
+app.delete("/alunos/:id", async (req, res) => {
   const { id } = req.params;
   let alunos = await readData();
   alunos = alunos.filter((a) => a.id !== id);
