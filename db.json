@@ -1,18 +1,3 @@
 {
-  "alunos": [
-    {
-      "nome": "João Silva",
-      "email": "joao@email.com",
-      "telefone": "11999999999",
-      "faixa": "Branca",
-      "pagou": true,
-      "dataPagamento": "2025-08-07",
-      "valor": 120,
-      "dataVencimento": "2025-08-30",
-      "dataCadastro": "2025-08-01",
-      "id": "1754619820862",
-      "valorAdicional": 0,
-      "descricaoAdicional": ""
-    }
-  ]
+  "alunos": []
 }

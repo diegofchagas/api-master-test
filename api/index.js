@@ -55,17 +55,21 @@ app.post("/alunos", async (req, res) => {
 
 app.put("/alunos/:id", async (req, res) => {
   const { id } = req.params;
-  const dadosParaAtualizar = req.body; // Renomeado para maior clareza
+  const dadosParaAtualizar = req.body;
   const alunos = await readData();
   const index = alunos.findIndex((a) => a.id === id);
+
   if (index === -1) {
     return res.status(404).send("Aluno não encontrado");
   }
 
-  // Mescla o aluno existente com os novos dados
+  // Pega o objeto do aluno existente
   const alunoExistente = alunos[index];
+
+  // Mescla o objeto existente com os novos dados
   const alunoAtualizado = { ...alunoExistente, ...dadosParaAtualizar };
 
+  // Atualiza o array de alunos
   alunos[index] = alunoAtualizado;
   await writeData(alunos);
   res.json(alunoAtualizado);
