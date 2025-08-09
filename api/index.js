@@ -59,7 +59,6 @@ app.delete("/alunos/:id", async (req, res) => {
   res.status(204).send();
 });
 
-// app.listen(PORT, () => {
-//   console.log(`API rodando em http://localhost:${PORT}`);
-// });
-export default app;
+app.listen(PORT, () => {
+  console.log(`API rodando em http://localhost:${PORT}`);
+});
