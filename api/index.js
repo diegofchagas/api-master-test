@@ -40,12 +40,32 @@ app.post("/alunos", async (req, res) => {
   res.status(201).json(novoAluno);
 });
 
+// app.put("/alunos/:id", async (req, res) => {
+//   const { id } = req.params;
+//   const alunoAtualizado = req.body;
+//   const alunos = await readData();
+//   const index = alunos.findIndex((a) => a.id === id);
+//   if (index === -1) return res.status(404).send("Aluno não encontrado");
+//   alunos[index] = alunoAtualizado;
+//   await writeData(alunos);
+//   res.json(alunoAtualizado);
+// });
+
+//nova função put
+
 app.put("/alunos/:id", async (req, res) => {
   const { id } = req.params;
-  const alunoAtualizado = req.body;
+  const dadosParaAtualizar = req.body; // Renomeado para maior clareza
   const alunos = await readData();
   const index = alunos.findIndex((a) => a.id === id);
-  if (index === -1) return res.status(404).send("Aluno não encontrado");
+  if (index === -1) {
+    return res.status(404).send("Aluno não encontrado");
+  }
+
+  // Mescla o aluno existente com os novos dados
+  const alunoExistente = alunos[index];
+  const alunoAtualizado = { ...alunoExistente, ...dadosParaAtualizar };
+
   alunos[index] = alunoAtualizado;
   await writeData(alunos);
   res.json(alunoAtualizado);
